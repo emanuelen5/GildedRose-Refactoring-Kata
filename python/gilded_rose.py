@@ -20,11 +20,9 @@ class GildedRose(object):
                 continue
 
             if item.name == "Backstage passes to a TAFKAL80ETC concert":
-                quality_increase = 1
-                if item.sell_in < 10:
-                    quality_increase = 2
-                if item.sell_in < 5:
-                    quality_increase = 3
+                quality_increase = (
+                    1 if item.sell_in >= 10 else 2 if item.sell_in >= 5 else 3
+                )
                 item.quality = min(item.quality + quality_increase, 50)
                 if item.sell_in < 0:
                     item.quality = 0
