@@ -19,29 +19,24 @@ class GildedRose(object):
                 item.quality = min(item.quality + quality_increase, 50)
                 continue
 
-            if item.name != "Backstage passes to a TAFKAL80ETC concert":
-                if item.quality > 0:
-                    quality_decrease = 1
-                    if item.sell_in < 0:
-                        quality_decrease = 2
-                    item.quality = max(item.quality - quality_decrease, 0)
-                continue
-
-            if item.quality < 50:
-                item.quality = item.quality + 1
-                if item.name == "Backstage passes to a TAFKAL80ETC concert":
+            if item.name == "Backstage passes to a TAFKAL80ETC concert":
+                if item.quality < 50:
+                    item.quality = item.quality + 1
                     if item.sell_in < 10:
                         if item.quality < 50:
                             item.quality = item.quality + 1
                     if item.sell_in < 5:
                         if item.quality < 50:
                             item.quality = item.quality + 1
-            if item.sell_in < 0:
-                if item.name != "Backstage passes to a TAFKAL80ETC concert":
-                    if item.quality > 0:
-                        item.quality = item.quality - 1
-                else:
+                if item.sell_in < 0:
                     item.quality = item.quality - item.quality
+                continue
+
+            if item.quality > 0:
+                quality_decrease = 1
+                if item.sell_in < 0:
+                    quality_decrease = 2
+                item.quality = max(item.quality - quality_decrease, 0)
 
 
 class Item:
